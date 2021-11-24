@@ -40,6 +40,12 @@ function setup(){
 
     //log6 = new Log(230,180,80, PI/2);
     slingshot = new SlingShot(bird.body,{x:200, y:50});
+
+    //tipos de dados
+    //tiposDeDados();
+
+    //exemplo de matriz
+   // exemploMatriz();
 }
 
 function draw(){
@@ -74,4 +80,50 @@ function mouseDragged(){
 
 function mouseReleased(){
     slingshot.fly();
+}
+function keyPressed(){
+    if(keyCode === 32){
+        slingshot.attach(bird.body);
+    }
+}
+
+function tiposDeDados(){
+//Exemplos sobre os diferentes tipos de dados em javascript
+
+//Número
+var numero = 22;
+console.log(numero);
+
+//String
+var string = "Você perdeu! Game over!";
+console.log(string);
+
+//Booleano
+var booleano = true;
+console.log(booleano);
+
+//Indefinido
+var objeto;
+console.log(objeto);
+
+//Nulo
+objeto = null;
+console.log(objeto);
+}
+
+function exemploMatriz(){
+    var matriz1 = [1,2,3,4,5];
+    console.log(matriz1[2]);
+    matriz1.pop();
+    console.log(matriz1);
+
+    var matriz2 = [1,"Melissa",false];
+    console.log(matriz2);
+    matriz2.push("mcDonalds");
+    console.log(matriz2);
+
+   // var matriz3 = [matriz1,matriz2];
+   // console.log(matriz3);
+   // console.log(matriz3[1][1]);
+
 }
