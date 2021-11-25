@@ -7,6 +7,7 @@ var engine, world;
 var box1, pig1;
 var backgroundImg,platform;
 var bird, slingShot;
+var Zoro = "NO ESTILINGUE";
 
 function preload() {
     backgroundImg = loadImage("sprites/bg.png");
@@ -70,22 +71,36 @@ function draw(){
     bird.display();
     platform.display();
     //log6.display();
-    slingshot.display();    
+    slingshot.display();
+    
+    getTime();
 }
 
 function mouseDragged(){
-    Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
+    if(Zoro !== "gomu gomu no pistol"){
+        Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
+    }
+    
 }
-
 
 function mouseReleased(){
     slingshot.fly();
+    Zoro = "gomu gomu no pistol";
 }
 function keyPressed(){
     if(keyCode === 32){
-        slingshot.attach(bird.body);
+        //slingshot.attach(bird.body);
     }
 }
+
+async function getTime(){
+    var resposta = await fetch("http://worldtimeapi.org/api/timezone/Europe/London");
+    var respostaJSON = await resposta.json();
+    var dateTime = respostaJSON.datetime;
+    var hora = dateTime.slice(11,13);
+    console.log(hora);
+}
+
 
 function tiposDeDados(){
 //Exemplos sobre os diferentes tipos de dados em javascript
