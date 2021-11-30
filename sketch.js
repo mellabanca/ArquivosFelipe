@@ -8,16 +8,19 @@ var box1, pig1;
 var backgroundImg,platform;
 var bird, slingShot;
 var Zoro = "NO ESTILINGUE";
+var fundo, imagemfundo;
+placar = 0;
+//var mensagem = "mensagem";
 
 function preload() {
-    backgroundImg = loadImage("sprites/bg.png");
+    //backgroundImg = loadImage("sprites/bg.png");
+    fundomuda();
 }
 
 function setup(){
     var canvas = createCanvas(1200,400);
     engine = Engine.create();
     world = engine.world;
-
 
     ground = new Ground(600,height,1200,20);
     platform = new Ground(150, 305, 300, 170);
@@ -50,18 +53,28 @@ function setup(){
 }
 
 function draw(){
-    background(backgroundImg);
+    //console.log(mensagem);
+    if(imagemfundo){
+        background(imagemfundo);
+        noStroke();
+        textSize(35);
+        fill("white");
+        text("Pontuação:"+placar, width-300,50);
+    }
+    
     Engine.update(engine);
     //strokeWeight(4);
     box1.display();
     box2.display();
     ground.display();
     pig1.display();
+    pig1.score();
     log1.display();
 
     box3.display();
     box4.display();
     pig3.display();
+    pig3.score();
     log3.display();
 
     box5.display();
@@ -73,13 +86,13 @@ function draw(){
     //log6.display();
     slingshot.display();
     
-    getTime();
+    
 }
 
 function mouseDragged(){
-    if(Zoro !== "gomu gomu no pistol"){
+    //if(Zoro !== "gomu gomu no pistol"){
         Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
-    }
+    //}
     
 }
 
@@ -89,16 +102,23 @@ function mouseReleased(){
 }
 function keyPressed(){
     if(keyCode === 32){
-        //slingshot.attach(bird.body);
+        slingshot.attach(bird.body);
     }
 }
 
-async function getTime(){
-    var resposta = await fetch("http://worldtimeapi.org/api/timezone/Europe/London");
+async function fundomuda(){
+    var resposta = await fetch("http://worldtimeapi.org/api/timezone/Asia/Kolkata");
     var respostaJSON = await resposta.json();
     var dateTime = respostaJSON.datetime;
     var hora = dateTime.slice(11,13);
-    console.log(hora);
+    if(hora >= 6 && hora <= 19 ){
+        fundo = "sprites/bg.png";
+    }
+    else{
+        fundo = "sprites/bg2.jpg";
+    }
+    imagemfundo = loadImage(fundo);
+    //console.log(hora);
 }
 
 
